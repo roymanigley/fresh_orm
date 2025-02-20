@@ -1,0 +1,11 @@
+fresh_orm.egg-info
+build
+dist
+__pycache__
+.env
+.venv
+env
+venv
+.idea
+*.log
+db.sqlite
