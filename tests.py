@@ -1,3 +1,4 @@
+import datetime
 import unittest
 from dataclasses import dataclass
 
@@ -121,6 +122,42 @@ class ForeignKeyTest(unittest.TestCase):
         self.assertEqual(dummy_from_db.name, dummy.name)
         self.assertEqual(dummy_from_db.type, dummy.type.id)
 
+class DataTypeTest(unittest.TestCase):
+
+    def setUp(self):
+        DbConfig.db_file = ':memory:'
+        DbConfig.reset_connection()
+
+    def test_datatype_mapping(self):
+        @dataclass
+        class Dummy(BaseModel):
+            name: str = None
+            price: float = None
+            number: int = None
+            active: bool = None
+            date: datetime.date = None
+            date_time: datetime.datetime = None
+            json_value: dict = None
+
+        class DummyRepo(BaseRepository[Dummy]):
+            model = Dummy
+
+        DbConfig.init_tables([Dummy])
+
+        dummy: Dummy = DummyRepo.create(
+            Dummy(
+                name='Test Dummy',
+                price=1.0,
+                number=1,
+                active=True,
+                date=datetime.date(2020, 1, 1),
+                date_time=datetime.datetime(2020, 1, 1, 10, 00),
+                json_value={'name': 'admin', 'email': 'admin@admin.local'},
+            )
+        )
+        dummy_from_db: Dummy = DummyRepo.by_id(dummy.id)
+        self.assertIsNotNone(dummy_from_db.id)
+        self.assertEqual(dummy, dummy_from_db)
 
 if __name__ == '__main__':
     unittest.main()
