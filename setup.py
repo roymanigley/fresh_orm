@@ -4,7 +4,7 @@ long_description = open('README.md', "rt").read()
 
 setup(
     name='fresh_orm',
-    version='0.0.1',
+    version='0.0.2',
     description='A lightweight SQLite Object-Relational Mapping (ORM) library for Python, designed to simplify database interactions and provide an intuitive interface for managing SQLite tables and relationships.',
     long_description=long_description,
     long_description_content_type='text/markdown',

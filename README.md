@@ -29,9 +29,7 @@ A lightweight SQLite Object-Relational Mapping (ORM) library for Python, designe
 ```python
 from dataclasses import dataclass
 
-from fresh_orm.config import DbConfig
-from fresh_orm.model import BaseModel
-from fresh_orm.repository import BaseRepository
+from fresh_orm import DbConfig, BaseModel, BaseRepository
 
 
 @dataclass
